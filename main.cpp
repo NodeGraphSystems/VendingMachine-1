@@ -371,32 +371,26 @@ int main()
 		
 		if(userTotal > price) {
 			cout << "Change is " << intChange << endl;
-			while(intChange !=0) {
-				
+			while(intChange !=0) {				
 				if(intChange - 25 >= 0) {
 					intChange = intChange - 25;
 					qcounter++;
-					cout << "Change is " << intChange << endl;
 				}
 				
 				else if(intChange - 10 >= 0) {
 					intChange = intChange - 10;
 					dcounter++;
-					cout << "Change is " << intChange << endl;
 				}
 				
 				else if(intChange - 5 >= 0) {
 					intChange = intChange - 5;
 					ncounter++;
-					cout << "Change is " << intChange << endl;
 				}
-				
-	 		/*
-			cout << "qcounter is " << qcounter << endl;
-			cout << "dcounter is " << dcounter << endl;
-			cout << "ncounter is " << ncounter << endl;
-			*/
 			}
+			cout << "You got back " << qcounter <<  " quarters" << endl;
+			cout << "You got back " << dcounter << " dimes" << endl;
+			cout << "You got back " << ncounter << " nickels" << endl;
+			
 			transaction.SetTotalQuarters(-qcounter); //Subtracts ammount of quarters given to user as change from total quarter count
 			transaction.SetTotalDimes(-dcounter); //Subtracts ammount of dimes given to user as change from total dime count
 			transaction.SetTotalNickels(-ncounter); //Subtracts ammount of nickels given to user as change from total nickel count

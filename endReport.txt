@@ -1,0 +1,6 @@
+Apple,4,4
+Orange,3,3
+Pear,3,4
+Banana,2,4
+test,3,8
+*Error*,0,0
