@@ -151,9 +151,9 @@ bool Vending::readItem(ifstream &inFS)
 void Vending::printVector(Vending temp)
 {
 	//cout << "DEBUG:entering printVector" << endl;
-	cout << temp.getItem() << " ";
-	cout << temp.getCost()<<" ";
-	cout << temp.getQuantity()<<endl;
+	cout <<"Item: "<< temp.getItem() << " ";
+	cout <<"$"<< temp.getCost()<<" ";
+	cout <<"Quantity: " << temp.getQuantity()<<endl;
 }
 //This method will print all of the contencts of the vector to an end report text file
 void Vending::printEndReport(ofstream& oFS)
@@ -272,6 +272,7 @@ int main()
 
 	for (i = 0; i < machineVector.size(); i++)
 	{
+		cout<<"[" << i<< "]" << ": ";
 		machineVector.at(i).printVector(machineVector.at(i));
 	}
 	
@@ -286,14 +287,16 @@ int main()
 	//
 
 	Register transaction;
+		/*
 		int fives = 0;
 		int ones = 0;
 		int quarters = 0;
 		int dimes = 0;
 		int nickels = 0;
-		int userChoice = 0; //used for menu
+		*/
+		int userChoice = 0;
 		double userTotal = 0; //ammount of money entered by user
-		double price = 2.70; //this is only here to fill in for pricedisp | cost of item
+		double price = 0; //this is only here to fill in for pricedisp | cost of item
 		double change = 0; //(userTotal - price)
 		int fcounter = 0;
 		int dbcounter = 0;
@@ -304,10 +307,22 @@ int main()
 		int intUserTotal;
 		int intPrice;
 		int intChange;
+		int userItemChoice;
 		
+		 while(userItemChoice>=machineVector.size()+1 && userItemChoice>=1)
+		{
+			cout<<"What item do you want to chose?"<<endl;
+			cin>>userItemChoice;
 		
+			if(userItemChoice>machineVector.size()||userItemChoice<=-1)
+			{
+				cout<<"please enter a number thats on the machine"<<endl;
+			}
+		}
+		
+		price = machineVector.at((userItemChoice)).getCost();
 		while(userChoice != 6) {
-			cout << "Enter an ammount of money" << endl;
+			cout << "Enter an amount of money" << endl;
 			cout << "[1] $5" << endl;
 			cout << "[2] $1" << endl;
 			cout << "[3] 1 Quarter" << endl;
@@ -364,7 +379,7 @@ int main()
 		if(userTotal < price) { //if the user doesn't have enough money, give back all their money
 			change = userTotal;
 			cout << "Error: not enough money" << endl;
-			cout << "Change is " << userTotal << endl; //TODO: Convert 5s and 1s into coins before returning
+			cout << "Change is " << userTotal << " cents" << endl; //TODO: Convert 5s and 1s into coins before returning
 
 			cout << "You got back " << qcounter <<  " quarters" << endl;
 			cout << "You got back " << dcounter << " dimes" << endl;
@@ -375,6 +390,7 @@ int main()
 			transaction.SetTotalNickels(-ncounter); //remove nickels enetered by user from total
 			
 		}
+		
 	/*	
 		else if (machineTotal < change) {
 			change = userTotal;
