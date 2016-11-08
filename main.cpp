@@ -177,14 +177,25 @@ class Register {
 		int GetTotalNickels();
 		double GetChange();
 		
+		Register();
+		
 	private:
-		int TotalFives = 0;
-		int TotalOnes = 0;
-		int TotalQuarters = 40;
-		int TotalDimes = 50;
-		int TotalNickels = 40;
-		double change = 0;
+		int TotalFives;
+		int TotalOnes;
+		int TotalQuarters;
+		int TotalDimes;
+		int TotalNickels;
+		double change;
 	};
+	
+	Register::Register() {
+		TotalFives = 0;
+		TotalOnes = 0;
+		TotalQuarters = 40;
+		TotalDimes = 50;
+		TotalNickels = 40;
+		change = 0;
+	}
 
 	//Sets
 	void Register::SetTotalFives(int fives) {
@@ -330,13 +341,18 @@ int main()
 			cout << "[5] 1 Nickel" << endl;
 			cout << "[6] Stop entering money" << endl;
 			cout << "You have $" << userTotal << " in credits" << endl;
-			if (price-userTotal != 0) {
-				cout << "You need " << (price - userTotal) << " more dollars" << endl;
+			if (price-userTotal > 0) {
+				cout << "You still need $" << (price - userTotal) << endl;
 			}
 			
+			else if(price-userTotal < 0) {
+				cout << "Machine owes you $" << userTotal - price << endl;
+				cout << "(enter 6 to stop entering money)" << endl;
+			}
+		
 			cin >> userChoice;
 			
-			 if(userChoice == 1) {
+			if(userChoice == 1) {
 				userTotal += 5;
 				transaction.SetTotalFives(1); //Adds one to the total count of 5 dollar bills in machine
 			}
@@ -404,7 +420,7 @@ int main()
 			qcounter = 0;
 			dcounter = 0;
 			ncounter = 0;
-			cout << "Change is " << intChange << endl;
+			cout << "Change is " << intChange << " cents" << endl;
 			while(intChange !=0) {				
 				if(intChange - 25 >= 0) { 
 					intChange = intChange - 25; //if a quarter can be subtracted, do so
