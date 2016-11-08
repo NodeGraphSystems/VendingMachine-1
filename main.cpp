@@ -305,14 +305,14 @@ int main()
 		int intChange;
 		
 		
-		while(userTotal < price) {
+		while(userChoice != 6) {
 			cout << "Enter an ammount of money" << endl;
 			cout << "[1] $5" << endl;
 			cout << "[2] $1" << endl;
 			cout << "[3] 1 Quarter" << endl;
 			cout << "[4] 1 Dime" << endl;
 			cout << "[5] 1 Nickel" << endl;
-			cout << "[6] Quit" << endl;
+			cout << "[6] Stop entering money" << endl;
 			cout << "You have $" << userTotal << " in credits" << endl;
 			if (price-userTotal != 0) {
 				cout << "You need " << (price - userTotal) << " more dollars" << endl;
@@ -333,16 +333,22 @@ int main()
 			else if(userChoice == 3) {
 				userTotal += 0.25;
 				transaction.SetTotalQuarters(1);
+				qcounter++;
 			}
 			
 			else if(userChoice == 4) {
 				userTotal += 0.10;
 				transaction.SetTotalDimes(1);
+				dcounter++;
 			}
 			
 			else if(userChoice == 5) {
 				userTotal += 0.05;
 				transaction.SetTotalNickels(1);
+				ncounter++;
+			}
+			else if(userChoice == 6) {
+				userTotal = userTotal;
 			}
 		}
 		
@@ -353,23 +359,34 @@ int main()
 		intChange = change;
 		intChange -=1;
 		
-		/*
-		if(userTotal < price || not enough userTotal to afford item) {
+		
+		if(userTotal < price) {
+			change = userTotal;
+			cout << "Error: not enough money" << endl;
+			cout << "Change is " << userTotal << endl; //TODO: Convert 5s and 1s into coins before returning
+
+			cout << "You got back " << qcounter <<  " quarters" << endl;
+			cout << "You got back " << dcounter << " dimes" << endl;
+			cout << "You got back " << ncounter << " nickels" << endl;
+
+			transaction.SetTotalQuarters(-qcounter); 
+			transaction.SetTotalDimes(-dcounter);
+			transaction.SetTotalNickels(-ncounter); 
+			
+		}
+	/*	
+		else if (machineTotal < change) {
 			change = userTotal;
 			transaction.SetTotalQuarters(-qcounter); 
 			transaction.SetTotalDimes(-dcounter);
 			transaction.SetTotalNickels(-ncounter); 
 		}
+	*/
 		
-		else if (machineTotal < change || not enough money in machine to make change) {
-			change = userTotal;
-			transaction.SetTotalQuarters(-qcounter); 
-			transaction.SetTotalDimes(-dcounter);
-			transaction.SetTotalNickels(-ncounter); 
-		}
-		*/
-		
-		if(userTotal > price) {
+		else if(userTotal > price) {
+			qcounter = 0;
+			dcounter = 0;
+			ncounter = 0;
 			cout << "Change is " << intChange << endl;
 			while(intChange !=0) {				
 				if(intChange - 25 >= 0) {
