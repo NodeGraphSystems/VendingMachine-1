@@ -323,45 +323,45 @@ int main()
 			
 			 if(userChoice == 1) {
 				userTotal += 5;
-				transaction.SetTotalFives(1);
+				transaction.SetTotalFives(1); //Adds one to the total count of 5 dollar bills in machine
 			}
 			
 			else if(userChoice == 2) {
 				userTotal += 1;
-				transaction.SetTotalOnes(1);
+				transaction.SetTotalOnes(1); //Adds one to the total count of 1 dollar bills in machine
 			}
 			
 			else if(userChoice == 3) {
 				userTotal += 0.25;
-				transaction.SetTotalQuarters(1);
+				transaction.SetTotalQuarters(1); //Adds one to the total count of quarters in machine
 				qcounter++;
 			}
 			
 			else if(userChoice == 4) {
 				userTotal += 0.10;
-				transaction.SetTotalDimes(1);
+				transaction.SetTotalDimes(1); //Adds one to the total count of dimes in machine
 				dcounter++;
 			}
 			
 			else if(userChoice == 5) {
 				userTotal += 0.05;
-				transaction.SetTotalNickels(1);
+				transaction.SetTotalNickels(1); //Adds one to the total count of nickels in machine
 				ncounter++;
 			}
-			else if(userChoice == 6) {
-				userTotal = userTotal;
+			else if(userChoice == 6) { 
+				userTotal = userTotal; //Stop entering money and exit the loop 
 			}
 		}
 		
 		
 		change = userTotal - price;
-		change *= 100.00;
-		change = ceil(change+0.005);
-		intChange = change;
-		intChange -=1;
+		change *= 100.00; //remove decimal place
+		change = ceil(change+0.005); //round up to cloest whole number
+		intChange = change; //swtich change to an int to allow for math
+		intChange -=1; //subtract 1 to recieve change
 		
 		
-		if(userTotal < price) {
+		if(userTotal < price) { //if the user doesn't have enough money, give back all their money
 			change = userTotal;
 			cout << "Error: not enough money" << endl;
 			cout << "Change is " << userTotal << endl; //TODO: Convert 5s and 1s into coins before returning
@@ -370,9 +370,9 @@ int main()
 			cout << "You got back " << dcounter << " dimes" << endl;
 			cout << "You got back " << ncounter << " nickels" << endl;
 
-			transaction.SetTotalQuarters(-qcounter); 
-			transaction.SetTotalDimes(-dcounter);
-			transaction.SetTotalNickels(-ncounter); 
+			transaction.SetTotalQuarters(-qcounter); //remove quarters enetered by user from total
+			transaction.SetTotalDimes(-dcounter); //remove dimes enetered by user from total
+			transaction.SetTotalNickels(-ncounter); //remove nickels enetered by user from total
 			
 		}
 	/*	
@@ -390,19 +390,19 @@ int main()
 			ncounter = 0;
 			cout << "Change is " << intChange << endl;
 			while(intChange !=0) {				
-				if(intChange - 25 >= 0) {
-					intChange = intChange - 25;
-					qcounter++;
+				if(intChange - 25 >= 0) { 
+					intChange = intChange - 25; //if a quarter can be subtracted, do so
+					qcounter++; //keep track of quarters that will be returned
 				}
 				
 				else if(intChange - 10 >= 0) {
-					intChange = intChange - 10;
-					dcounter++;
+					intChange = intChange - 10; //if a dime can be subtracted, do so
+					dcounter++; //keep track of dimes that will be returne
 				}
 				
 				else if(intChange - 5 >= 0) {
-					intChange = intChange - 5;
-					ncounter++;
+					intChange = intChange - 5; //if a nickel can be subtracted, do so
+					ncounter++; //keep track of nickels that will be returne
 				}
 			}
 			cout << "You got back " << qcounter <<  " quarters" << endl;
