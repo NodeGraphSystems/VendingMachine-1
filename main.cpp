@@ -279,6 +279,7 @@ int main()
 	for (j = 0; j < machineVector.size(); j++)
 	{
 		machineVector.at(j).printEndReport(oFS);
+		//TODO: total counts for coins
 	}
 
 	//---------------------------John-George---------------------
