@@ -48,12 +48,7 @@ int main()
 		machineVector.at(i).printVector(machineVector.at(i));
 	}
 	
-	oFS.open("endReport.txt");
-	for (j = 0; j < machineVector.size(); j++)
-	{
-		machineVector.at(j).printEndReport(oFS);
-		//TODO: total counts for coins
-	}
+	
 
 	//---------------------------John-George---------------------
 	//
@@ -75,7 +70,7 @@ int main()
 		int intPrice;
 		int intChange;
 		int userItemChoice;
-		
+		int newQuantitiy;
 		machineTotal = ((transaction.GetTotalFives() * 500) + (transaction.GetTotalOnes() * 100) + (transaction.GetTotalQuarters() * .25) + (transaction.GetTotalDimes() * .10) + (transaction.GetTotalNickels() * .05)); //calculates the total amount of money in the machine in cents
 		
 		 while(userItemChoice>=machineVector.size()+1 && userItemChoice>=1)
@@ -210,7 +205,7 @@ int main()
 
 		else if(machineTotal < userTotal) { //if the machine does not have enough money to make change
 			cout << "ERROR: There is not enough money in the machine to make change. Contact vendor company to get your money back." << endl;
-					exit(EXIT_SUCCESS); //Terminate the program if machine cannot make change
+					exit(1); //Terminate the program if machine cannot make change
 		}
 		
 		else if(userTotal > price) { //if the user entered only coins and machine can make enough change
@@ -243,11 +238,39 @@ int main()
 			transaction.SetTotalQuarters(-qcounter); //Subtracts ammount of quarters given to user as change from total quarter count
 			transaction.SetTotalDimes(-dcounter); //Subtracts ammount of dimes given to user as change from total dime count
 			transaction.SetTotalNickels(-ncounter); //Subtracts ammount of nickels given to user as change from total nickel count
+			
+			//REMOVE ITEM
+			newQuantitiy = machineVector.at(userItemChoice).getQuantity();
+			newQuantitiy -= 1;
+			machineVector.at(userItemChoice).setQuantity(newQuantitiy);
+			oFS.open("endReport.txt");
+			for (j = 0; j < machineVector.size(); j++)
+			{
+				machineVector.at(j).printEndReport(oFS);
+				
+			}
 		}
 
 		else if(userTotal == price) {
 			cout << "Thanks for using exact chage. Enjoy your item";
+			//REMOVE ITEM
+			newQuantitiy = machineVector.at(userItemChoice).getQuantity();
+			newQuantitiy -= 1;
+			machineVector.at(userItemChoice).setQuantity(newQuantitiy);
+			oFS.open("endReport.txt");
+			for (j = 0; j < machineVector.size(); j++)
+			{
+				machineVector.at(j).printEndReport(oFS);
+				//TODO: total counts for coins
+			}
 		}
+		oFS << endl;
+		oFS << "Five Dollar Bills:" << transaction.GetTotalFives() << endl;
+		oFS << "One Dollar Bills:" << transaction.GetTotalOnes() << endl;
+		oFS << "Quarters:" << transaction.GetTotalQuarters() << endl;
+		oFS << "Dimes:" << transaction.GetTotalDimes() << endl;
+		oFS << "Nickels:"  << transaction.GetTotalNickels() << endl;
 
+			
 	return 0;
 }
