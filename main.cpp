@@ -12,7 +12,6 @@ using namespace std;
 
 int main()
 {
-	//--------------------------ANDY-------------------
 	ifstream inFS;
 	ofstream oFS;
 	Vending temp;
@@ -20,6 +19,26 @@ int main()
 	int i;
 	int j;
 	string filename;
+	
+	Register transaction;
+	int userChoice = 0;
+	double userTotal = 0;
+	double price = 0;
+	double change = 0;
+	int fcounter = 0;
+	int dbcounter = 0;
+	int qcounter = 0;
+	int dcounter = 0;
+	int ncounter = 0;
+	int machineTotal = 0;
+	int tempFive = 0;
+	int tempOne = 0;
+	int intUserTotal;
+	int intPrice;
+	int intChange;
+	int userItemChoice;
+	int newQuantitiy;
+	
 	cout << "Please enter the name of the file you would like to enter. (be sure to include the file extention)" << endl;
 	cin >> filename;
 	inFS.open(filename);
@@ -49,28 +68,6 @@ int main()
 	}
 	
 	
-
-	//---------------------------John-George---------------------
-	//
-
-	Register transaction;
-		int userChoice = 0;
-		double userTotal = 0;
-		double price = 0;
-		double change = 0;
-		int fcounter = 0;
-		int dbcounter = 0;
-		int qcounter = 0;
-		int dcounter = 0;
-		int ncounter = 0;
-		int machineTotal = 0;
-		int tempFive = 0;
-		int tempOne = 0;
-		int intUserTotal;
-		int intPrice;
-		int intChange;
-		int userItemChoice;
-		int newQuantitiy;
 		machineTotal = ((transaction.GetTotalFives() * 500) + (transaction.GetTotalOnes() * 100) + (transaction.GetTotalQuarters() * .25) + (transaction.GetTotalDimes() * .10) + (transaction.GetTotalNickels() * .05)); //calculates the total amount of money in the machine in cents
 		
 		 while(userItemChoice>=machineVector.size()+1 && userItemChoice>=1)
@@ -247,8 +244,13 @@ int main()
 			for (j = 0; j < machineVector.size(); j++)
 			{
 				machineVector.at(j).printEndReport(oFS);
-				
 			}
+			oFS << endl;
+			oFS << "Five Dollar Bills:" << transaction.GetTotalFives() << endl;
+			oFS << "One Dollar Bills:" << transaction.GetTotalOnes() << endl;
+			oFS << "Quarters:" << transaction.GetTotalQuarters() << endl;
+			oFS << "Dimes:" << transaction.GetTotalDimes() << endl;
+			oFS << "Nickels:"  << transaction.GetTotalNickels() << endl;
 		}
 
 		else if(userTotal == price) {
@@ -261,16 +263,16 @@ int main()
 			for (j = 0; j < machineVector.size(); j++)
 			{
 				machineVector.at(j).printEndReport(oFS);
-				//TODO: total counts for coins
 			}
+			oFS << endl;
+			oFS << "Five Dollar Bills:" << transaction.GetTotalFives() << endl;
+			oFS << "One Dollar Bills:" << transaction.GetTotalOnes() << endl;
+			oFS << "Quarters:" << transaction.GetTotalQuarters() << endl;
+			oFS << "Dimes:" << transaction.GetTotalDimes() << endl;
+			oFS << "Nickels:"  << transaction.GetTotalNickels() << endl;
 		}
-		oFS << endl;
-		oFS << "Five Dollar Bills:" << transaction.GetTotalFives() << endl;
-		oFS << "One Dollar Bills:" << transaction.GetTotalOnes() << endl;
-		oFS << "Quarters:" << transaction.GetTotalQuarters() << endl;
-		oFS << "Dimes:" << transaction.GetTotalDimes() << endl;
-		oFS << "Nickels:"  << transaction.GetTotalNickels() << endl;
-
+		
+	
 			
 	return 0;
 }
