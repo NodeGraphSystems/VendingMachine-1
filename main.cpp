@@ -70,7 +70,6 @@ int main()
 		machineVector.at(i).printVector(machineVector.at(i));
 	}
 	
-	
 		machineTotal = ((transaction.GetTotalFives() * 500) + (transaction.GetTotalOnes() * 100) + (transaction.GetTotalQuarters() * .25) + (transaction.GetTotalDimes() * .10) + (transaction.GetTotalNickels() * .05)); //calculates the total amount of money in the machine in cents
 		
 		 while(userItemChoice>=machineVector.size()+1 && userItemChoice>=1)
@@ -272,8 +271,5 @@ int main()
 			oFS << "Dimes:" << transaction.GetTotalDimes() << endl;
 			oFS << "Nickels:"  << transaction.GetTotalNickels() << endl;
 		}
-		
-	
-			
 	return 0;
 }
