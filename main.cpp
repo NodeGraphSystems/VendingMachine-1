@@ -136,8 +136,6 @@ int main()
 			}
 		}
 		
-		
-		
 		change = userTotal - price;
 		change *= 100.00; //remove decimal place
 		change = ceil(change+0.005); //round up to cloest whole number
@@ -232,9 +230,9 @@ int main()
 			cout << "You got back " << dcounter << " dimes" << endl;
 			cout << "You got back " << ncounter << " nickels" << endl;
 			
-			transaction.SetTotalQuarters(-qcounter); //Subtracts ammount of quarters given to user as change from total quarter count
-			transaction.SetTotalDimes(-dcounter); //Subtracts ammount of dimes given to user as change from total dime count
-			transaction.SetTotalNickels(-ncounter); //Subtracts ammount of nickels given to user as change from total nickel count
+			transaction.SetTotalQuarters(-qcounter); //Subtracts amount of quarters given to user as change from total quarter count
+			transaction.SetTotalDimes(-dcounter); //Subtracts amount of dimes given to user as change from total dime count
+			transaction.SetTotalNickels(-ncounter); //Subtracts amount of nickels given to user as change from total nickel count
 			
 			//REMOVE ITEM
 			newQuantitiy = machineVector.at(userItemChoice).getQuantity();
@@ -255,8 +253,8 @@ int main()
 
 		else if(userTotal == price) {
 			cout << "Thanks for using exact chage. Enjoy your item";
-			//REMOVE ITEM
-			newQuantitiy = machineVector.at(userItemChoice).getQuantity();
+	
+			newQuantitiy = machineVector.at(userItemChoice).getQuantity(); //remove the item from the count
 			newQuantitiy -= 1;
 			machineVector.at(userItemChoice).setQuantity(newQuantitiy);
 			oFS.open("endReport.txt");
