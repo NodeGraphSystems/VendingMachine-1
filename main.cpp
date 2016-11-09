@@ -1,3 +1,6 @@
+//John-George Sample
+//Andrew Vilsack
+
 #include <iostream>
 #include <ios>
 #include <string>
