@@ -76,7 +76,7 @@ int main()
 		int intChange;
 		int userItemChoice;
 		
-		machineTotal = ((transaction.GetTotalFives() * 500) + (transaction.GetTotalOnes() * 100) + (transaction.GetTotalQuarters() * .25) + (transaction.GetTotalDimes() * .10) + (transaction.GetTotalNickels() * .05));
+		//machineTotal = ((transaction.GetTotalFives() * 500) + (transaction.GetTotalOnes() * 100) + (transaction.GetTotalQuarters() * .25) + (transaction.GetTotalDimes() * .10) + (transaction.GetTotalNickels() * .05)); //calculates the total amount of money in the machine in cents
 		
 		 while(userItemChoice>=machineVector.size()+1 && userItemChoice>=1)
 		{
@@ -103,7 +103,7 @@ int main()
 				cout << "You still need $" << (price - userTotal) << endl;
 			}
 			
-			else if(price-userTotal < 0) {
+			else if(price-userTotal < 0) { //machine starts to track how much change to give back
 				cout << "Machine owes you $" << userTotal - price << endl;
 				cout << "(enter 6 to stop entering money)" << endl;
 			}
@@ -144,6 +144,7 @@ int main()
 			}
 		}
 		
+		machineTotal = ((transaction.GetTotalFives() * 500) + (transaction.GetTotalOnes() * 100) + (transaction.GetTotalQuarters() * .25) + (transaction.GetTotalDimes() * .10) + (transaction.GetTotalNickels() * .05)); //calculates the total amount of money in the machine in cents
 		
 		change = userTotal - price;
 		change *= 100.00; //remove decimal place
@@ -151,10 +152,10 @@ int main()
 		intChange = change; //swtich change to an int to allow for math
 		intChange -=1; //subtract 1 to recieve change
 		
-	if(userTotal < price) { 
-			change = userTotal;
-			if(machineTotal > userTotal) {
-				if(fcounter > 0) {
+	if(userTotal < price) { //if user doesn't have enough money
+			change = userTotal; //make change equal the money they enetered
+			if(machineTotal > userTotal) { //makes sure machine has enough money to make change
+				if(fcounter > 0) { //if user entered a five dollar bill, convert it into cents
 					tempFive = transaction.GetTotalFives() * 500;
 					while(tempFive !=0) {				
 						if(tempFive - 25 >= 0) { 
@@ -174,7 +175,7 @@ int main()
 					}
 				}
 				
-				if(dbcounter > 0) {
+				if(dbcounter > 0) { //if user entered a one dollar bill, convert it into cents
 					tempOne = transaction.GetTotalOnes() * 100;
 					while(tempOne !=0) {				
 						if(tempOne - 25 >= 0) { 
@@ -208,13 +209,13 @@ int main()
 			transaction.SetTotalNickels(-ncounter); //remove nickels enetered by user from total
 		}
 
-		else if(machineTotal < userTotal) {
+		else if(machineTotal < userTotal) { //if the machine does not have enough money to make change
 			cout << "ERROR: There is not enough money in the machine to make change. Contact vendor company to get your money back." << endl;
 					exit(EXIT_SUCCESS); //Terminate the program if machine cannot make change
 		}
 
 		
-		else if(userTotal > price) {
+		else if(userTotal > price) { //if the user entered only coins and machine can make enough change
 			fcounter = 0;
 			dbcounter = 0;
 			qcounter = 0;
