@@ -76,6 +76,7 @@ int main()
 		int intChange;
 		int userItemChoice;
 		
+		machineTotal = ((transaction.GetTotalFives() * 500) + (transaction.GetTotalOnes() * 100) + (transaction.GetTotalQuarters() * .25) + (transaction.GetTotalDimes() * .10) + (transaction.GetTotalNickels() * .05)); //calculates the total amount of money in the machine in cents
 		
 		 while(userItemChoice>=machineVector.size()+1 && userItemChoice>=1)
 		{
@@ -143,7 +144,7 @@ int main()
 			}
 		}
 		
-		machineTotal = ((transaction.GetTotalFives() * 500) + (transaction.GetTotalOnes() * 100) + (transaction.GetTotalQuarters() * .25) + (transaction.GetTotalDimes() * .10) + (transaction.GetTotalNickels() * .05)); //calculates the total amount of money in the machine in cents
+		
 		
 		change = userTotal - price;
 		change *= 100.00; //remove decimal place
@@ -211,7 +212,6 @@ int main()
 			cout << "ERROR: There is not enough money in the machine to make change. Contact vendor company to get your money back." << endl;
 					exit(EXIT_SUCCESS); //Terminate the program if machine cannot make change
 		}
-
 		
 		else if(userTotal > price) { //if the user entered only coins and machine can make enough change
 			fcounter = 0;
@@ -245,6 +245,9 @@ int main()
 			transaction.SetTotalNickels(-ncounter); //Subtracts ammount of nickels given to user as change from total nickel count
 		}
 
+		else if(userTotal == price) {
+			cout << "Thanks for using exact chage. Enjoy your item";
+		}
 
 	return 0;
 }
