@@ -1,6 +1,6 @@
 Welcome to VENDING MACHINE. There are a few rules about the machine you should know before you buy something.
 1. NO REFUNDS
-4. The maximum limit of an individual item is 12
+4. The maximum limit of an individual item is 12 and max of total items is 36
 5. The following denominations of USD are the only ones accepted by the machine:
 	-$5 bills
 	-$1 bills
