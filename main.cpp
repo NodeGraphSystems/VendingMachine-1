@@ -4,250 +4,11 @@
 #include <vector>
 #include <fstream>
 #include <math.h>
+
+#include "vending.h"
+#include "register.h"
+
 using namespace std;
-
-class Vending {
-public:
-	void setItem(string itemName);
-	void setCost(double costName);
-	void setQuantity(int quantityName);
-	string getItem();
-	double getCost();
-	int getQuantity();
-	void appendItem(vector<Vending>& machineVector);
-	bool readItem(ifstream &);
-	void printVector(const Vending);
-	void printEndReport(ofstream& oFS);
-	Vending();
-private:
-	string item;
-	double cost;
-	int quantity;
-};
-
-Vending::Vending()
-{
-	item = "*Null*";
-	cost = 999.95;
-	quantity = 12;
-}
-//Mutator for the Item variable
-void Vending::setItem(string itemName)
-{
-	item = itemName;
-}
-//Mutator for the cost variable
-void Vending::setCost(double costName)
-{
-	cost = costName;
-}
-//Mutator for the quantity variable
-void Vending::setQuantity(int quantityName)
-{
-	quantity = quantityName;
-}
-//getter for the variable item
-string Vending::getItem()
-{
-	return item;
-}
-//getter for the variable cost
-double Vending::getCost()
-{
-	return cost;
-}
-//getter for the variable quantity
-int Vending::getQuantity()
-{
-	return quantity;
-}
-//This method will have the Vending object passed into it and have the variables loaded into it.  
-void Vending::appendItem(vector<Vending>& machineVector)
-{
-	Vending temp;
-	temp.setCost(this->cost);
-	temp.setItem(this->item);
-	temp.setQuantity(this->quantity);
-	machineVector.push_back(temp);
-}
-//This method will check that the file still has items in it, and will check to make sure its in the correct format.
-bool Vending::readItem(ifstream &inFS)
-{
-	//cout << "DEBUG:entered read file" << endl;
-	bool isMore = true;
-	string junk;
-	string holdingString;
-	int i = 0;
-	int j = 0;
-	int counter = 0;
-	int pos = 0;
-	double numholder;
-	bool breakFlag = false;
-	bool flag2 = false;
-	//Check to make sure that the file is not over
-	if (!inFS.eof())
-	{
-		getline(inFS, holdingString);
-		for (i = 0; i < holdingString.length(); i++)
-		{
-			//makes sure that file is the correct format
-			if (holdingString.at(i) == ',')
-			{
-				counter += 1;
-			}
-		}
-		//when the files the correct format it will add then to the object
-		if (counter == 2)
-		{
-			pos = holdingString.find(',');
-			this->item = holdingString.substr(0, pos);
-			holdingString = holdingString.erase(0, (pos+1));
-			pos = holdingString.find(',');
-			this->cost = stod(holdingString.substr(0, pos));
-			holdingString = holdingString.erase(0, pos+1);
-			this->quantity = stoi(holdingString.substr(0, pos));
-			counter = 0;
-			//cout << "Debug: Entered correctly" << this->item << " " << this->cost << this->quantity << endl;
-		}
-		else
-		{
-			breakFlag = true;
-		}
-		numholder = (this->cost);
-		numholder = numholder * 100;
-		numholder = round(numholder);
-		//makes sure that the cost of the item can be divisable by 5, because our machine doesnt take pennies
-		if (fmod(numholder,5) != 0)
-		{
-			breakFlag = true;
-			cout << "Error: Price cannot be met without pennies" << endl;
-		}
-		//the vending machine cannot have a quantity of more than 12
-		if (this->quantity > 12)
-		{
-			breakFlag = true;
-			cout << "Error: Machine cannot hold more than 12 items" << endl;
-		}
-		//Sets easy to see values if the line was thrown away
-		if(breakFlag)
-		{
-			cout << "Error on line, line skipped"<<endl;
-			this->item = "*Error*";
-			this-> cost = 0.00;
-			this->quantity = 0;
-		}
-		
-		//cout << "DEBUG:returned true"<<endl;
-	}
-	else if (inFS.eof())
-	{
-		isMore = false;
-		//cout << "DEBUG:returned false" << endl;
-	}
-	breakFlag = true;
-	return isMore;
-}
-//This method will print out all of the contents of the vector to the screen
-void Vending::printVector(Vending temp)
-{
-	//cout << "DEBUG:entering printVector" << endl;
-	cout <<"Item: "<< temp.getItem() << " ";
-	cout <<"$"<< temp.getCost()<<" ";
-	cout <<"Quantity: " << temp.getQuantity()<<endl;
-}
-//This method will print all of the contencts of the vector to an end report text file
-void Vending::printEndReport(ofstream& oFS)
-{
-	oFS << this->item << "," << this->cost << "," << this->quantity << endl;
-}
-
-class Register {
-	public:
-		void SetTotalFives(int fives);
-		void SetTotalOnes(int ones);
-		void SetTotalQuarters(int quarters);
-		void SetTotalDimes(int dimes);
-		void SetTotalNickels(int nickels);
-		void SetChange(double price, double userTotal);
-		
-		int GetTotalFives();
-		int GetTotalOnes();
-		int GetTotalQuarters();
-		int GetTotalDimes();
-		int GetTotalNickels();
-		double GetChange();
-		
-		Register();
-		
-	private:
-		int TotalFives;
-		int TotalOnes;
-		int TotalQuarters;
-		int TotalDimes;
-		int TotalNickels;
-		double change;
-	};
-	
-	Register::Register() {
-		TotalFives = 0;
-		TotalOnes = 0;
-		TotalQuarters = 40;
-		TotalDimes = 50;
-		TotalNickels = 40;
-		change = 0;
-	}
-
-	//Sets
-	void Register::SetTotalFives(int fives) {
-		TotalFives += fives;
-	}
-	
-	void Register::SetTotalOnes(int ones) {
-		TotalOnes += ones;
-	}
-	
-	void Register::SetTotalQuarters(int quarters) {
-		TotalQuarters += quarters;
-	}
-
-	void Register::SetTotalDimes(int dimes) {
-		TotalDimes += dimes;
-	}
-
-	void Register::SetTotalNickels(int nickels) {
-		TotalNickels += nickels;
-	}
-
-
-	void Register::SetChange(double price, double userTotal) {
-		change = userTotal - price;
-	}
-
-	//Gets
-	int Register::GetTotalFives() {
-		return TotalFives;
-	}
-	
-	int Register::GetTotalOnes() {
-		return TotalOnes;
-	}
-	
-	int Register::GetTotalQuarters() {
-		return TotalQuarters;
-	}
-
-	int Register::GetTotalDimes() {
-		return TotalDimes;
-	}
-
-	int Register::GetTotalNickels() {
-		return TotalNickels;
-	}
-
-
-	double Register::GetChange() {
-		return change;
-	}
 
 int main()
 {
@@ -306,19 +67,24 @@ int main()
 		int nickels = 0;
 		*/
 		int userChoice = 0;
-		double userTotal = 0; //ammount of money entered by user
-		double price = 0; //this is only here to fill in for pricedisp | cost of item
-		double change = 0; //(userTotal - price)
+		double userTotal = 0;
+		double price = 0;
+		double change = 0;
 		int fcounter = 0;
 		int dbcounter = 0;
 		int qcounter = 0;
 		int dcounter = 0;
 		int ncounter = 0;
-		
+	
+		//TESTING THESE
+		int machineTotal = 0;
+		//TESTING THESE		
 		int intUserTotal;
 		int intPrice;
 		int intChange;
 		int userItemChoice;
+		
+		machineTotal = ((transaction.GetTotalFives() * 500) + (transaction.GetTotalOnes() * 100) + (transaction.GetTotalQuarters() * .25) + (transaction.GetTotalDimes() * .10) + (transaction.GetTotalNickels() * .05));
 		
 		 while(userItemChoice>=machineVector.size()+1 && userItemChoice>=1)
 		{
@@ -355,11 +121,13 @@ int main()
 			if(userChoice == 1) {
 				userTotal += 5;
 				transaction.SetTotalFives(1); //Adds one to the total count of 5 dollar bills in machine
+				fcounter++;
 			}
 			
 			else if(userChoice == 2) {
 				userTotal += 1;
 				transaction.SetTotalOnes(1); //Adds one to the total count of 1 dollar bills in machine
+				dbcounter++;
 			}
 			
 			else if(userChoice == 3) {
@@ -391,11 +159,53 @@ int main()
 		intChange = change; //swtich change to an int to allow for math
 		intChange -=1; //subtract 1 to recieve change
 		
-		
-		if(userTotal < price) { //if the user doesn't have enough money, give back all their money
+	if(userTotal < price) { 
 			change = userTotal;
-			cout << "Error: not enough money" << endl;
-			cout << "Change is " << userTotal << " cents" << endl; //TODO: Convert 5s and 1s into coins before returning
+			if(machineTotal > userTotal) {
+				if(fcounter > 0) {
+					int tempFive = transaction.GetTotalFives() * 500;
+					while(tempFive !=0) {				
+						if(tempFive - 25 >= 0) { 
+							tempFive = tempFive - 25; //if a quarter can be subtracted, do so
+							qcounter++; //keep track of quarters that will be returned
+						}
+						
+						else if(tempFive - 10 >= 0) {
+							tempFive = tempFive - 10; //if a dime can be subtracted, do so
+							dcounter++; //keep track of dimes that will be returne
+						}
+						
+						else if(tempFive - 5 >= 0) {
+							tempFive = tempFive - 5; //if a nickel can be subtracted, do so
+							ncounter++; //keep track of nickels that will be returne
+						}
+					}
+				}
+				
+				if(dbcounter > 0) {
+					int tempOne = transaction.GetTotalOnes() * 100;
+					while(tempOne !=0) {				
+						if(tempOne - 25 >= 0) { 
+							tempOne = tempOne - 25; //if a quarter can be subtracted, do so
+							qcounter++; //keep track of quarters that will be returned
+						}
+						
+						else if(tempOne - 10 >= 0) {
+							tempOne = tempOne - 10; //if a dime can be subtracted, do so
+							dcounter++; //keep track of dimes that will be returne
+						}
+						
+						else if(tempOne - 5 >= 0) {
+							tempOne = tempOne - 5; //if a nickel can be subtracted, do so
+							ncounter++; //keep track of nickels that will be returne
+						}
+					}
+				}
+	
+			}
+			
+			cout << "Error: You did not enter enough money to buy item, giving money back" << endl;
+			cout << "" << endl; //I have no idea why, but deleting this line breaks the program
 
 			cout << "You got back " << qcounter <<  " quarters" << endl;
 			cout << "You got back " << dcounter << " dimes" << endl;
@@ -404,19 +214,17 @@ int main()
 			transaction.SetTotalQuarters(-qcounter); //remove quarters enetered by user from total
 			transaction.SetTotalDimes(-dcounter); //remove dimes enetered by user from total
 			transaction.SetTotalNickels(-ncounter); //remove nickels enetered by user from total
-			
 		}
-		
-	/*	
-		else if (machineTotal < change) {
-			change = userTotal;
-			transaction.SetTotalQuarters(-qcounter); 
-			transaction.SetTotalDimes(-dcounter);
-			transaction.SetTotalNickels(-ncounter); 
+
+		else if(machineTotal < userTotal) {
+			cout << "ERROR: There is not enough money in the machine to make change. Contact vendor company for a refund." << endl;
+					exit(EXIT_SUCCESS); //Terminate the program if machine cannot make change
 		}
-	*/
+
 		
 		else if(userTotal > price) {
+			fcounter = 0;
+			dbcounter = 0;
 			qcounter = 0;
 			dcounter = 0;
 			ncounter = 0;
@@ -445,6 +253,7 @@ int main()
 			transaction.SetTotalDimes(-dcounter); //Subtracts ammount of dimes given to user as change from total dime count
 			transaction.SetTotalNickels(-ncounter); //Subtracts ammount of nickels given to user as change from total nickel count
 		}
+
 
 	return 0;
 }
