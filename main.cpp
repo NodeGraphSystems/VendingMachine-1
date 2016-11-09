@@ -76,7 +76,6 @@ int main()
 		int intChange;
 		int userItemChoice;
 		
-		//machineTotal = ((transaction.GetTotalFives() * 500) + (transaction.GetTotalOnes() * 100) + (transaction.GetTotalQuarters() * .25) + (transaction.GetTotalDimes() * .10) + (transaction.GetTotalNickels() * .05)); //calculates the total amount of money in the machine in cents
 		
 		 while(userItemChoice>=machineVector.size()+1 && userItemChoice>=1)
 		{
@@ -198,7 +197,6 @@ int main()
 			}
 			
 			cout << "Error: You did not enter enough money to buy item, giving money back" << endl;
-			cout << "" << endl; //I have no idea why, but deleting this line breaks the program
 
 			cout << "You got back " << qcounter <<  " quarters" << endl;
 			cout << "You got back " << dcounter << " dimes" << endl;
