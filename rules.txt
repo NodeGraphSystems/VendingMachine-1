@@ -1,0 +1,11 @@
+Welcome to VENDING MACHINE. There are a few rules about the machine you should know before you buy something.
+1. NO REFUNDS
+4. The maximum limit of an individual item is 12
+5. The following denominations of USD are the only ones accepted by the machine:
+	-$5 bills
+	-$1 bills
+	-Quarters
+	-Dimes
+	-Nickels
+6. Change will be made with only quarters, dimes, and nickels
+7. If the machine takes your money and cannot make change, it will keep your money. We urge you to contact the vendor company to get your money back.

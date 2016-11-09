@@ -69,6 +69,8 @@ int main()
 		int dcounter = 0;
 		int ncounter = 0;
 		int machineTotal = 0;
+		int tempFive = 0;
+		int tempOne = 0;
 		int intUserTotal;
 		int intPrice;
 		int intChange;
@@ -153,7 +155,7 @@ int main()
 			change = userTotal;
 			if(machineTotal > userTotal) {
 				if(fcounter > 0) {
-					int tempFive = transaction.GetTotalFives() * 500;
+					tempFive = transaction.GetTotalFives() * 500;
 					while(tempFive !=0) {				
 						if(tempFive - 25 >= 0) { 
 							tempFive = tempFive - 25; //if a quarter can be subtracted, do so
@@ -173,7 +175,7 @@ int main()
 				}
 				
 				if(dbcounter > 0) {
-					int tempOne = transaction.GetTotalOnes() * 100;
+					tempOne = transaction.GetTotalOnes() * 100;
 					while(tempOne !=0) {				
 						if(tempOne - 25 >= 0) { 
 							tempOne = tempOne - 25; //if a quarter can be subtracted, do so
@@ -207,7 +209,7 @@ int main()
 		}
 
 		else if(machineTotal < userTotal) {
-			cout << "ERROR: There is not enough money in the machine to make change. Contact vendor company for a refund." << endl;
+			cout << "ERROR: There is not enough money in the machine to make change. Contact vendor company to get your money back." << endl;
 					exit(EXIT_SUCCESS); //Terminate the program if machine cannot make change
 		}
 
