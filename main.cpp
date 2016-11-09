@@ -59,13 +59,6 @@ int main()
 	//
 
 	Register transaction;
-		/*
-		int fives = 0;
-		int ones = 0;
-		int quarters = 0;
-		int dimes = 0;
-		int nickels = 0;
-		*/
 		int userChoice = 0;
 		double userTotal = 0;
 		double price = 0;
@@ -75,10 +68,7 @@ int main()
 		int qcounter = 0;
 		int dcounter = 0;
 		int ncounter = 0;
-	
-		//TESTING THESE
 		int machineTotal = 0;
-		//TESTING THESE		
 		int intUserTotal;
 		int intPrice;
 		int intChange;
